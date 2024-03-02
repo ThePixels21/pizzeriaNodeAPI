@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { handleHttp } from "../utils/error.handle" 
-import { getAll, get, save, update, remove} from "../services/cart.service";
+import { getAll, get, save, update, remove, removePizzaFromCart} from "../services/cart.service";
 import { ICart } from "../interfaces/ICart";
 import CartModel from "../models/cart";
 
@@ -70,12 +70,30 @@ const insertPizzaToCart = async (req: Request, res: Response, next: NextFunction
             next();
     
         } else {
-            res.status(500).send("Cart not found or invalid");
+            return res.status(500).send("Cart not found or invalid");
         }
     } else {
-        res.status(500).send("You can't add less than 1 pizza");
+        return res.status(500).send("You can't add less than 1 pizza");
     }
 
 };
 
-export { getCart, getAllCarts, saveCart, updateCart, deleteCart, insertPizzaToCart };
+const deletePizzaFromCart = async (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params
+    const { pizzaId } = req.params
+
+    const updatedCart = await removePizzaFromCart(id, pizzaId);
+      
+    if (updatedCart) {
+            
+        req.body = updatedCart;
+        next();
+    
+    } else {
+        return res.status(500).send("Cart not found or invalid");
+    }
+
+};
+
+export { getCart, getAllCarts, saveCart, updateCart, deleteCart, insertPizzaToCart, deletePizzaFromCart };

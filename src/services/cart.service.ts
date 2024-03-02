@@ -26,4 +26,10 @@ const remove = async (id: string) => {
     return response;
 };
 
-export { getAll, get, save, update, remove }
+const removePizzaFromCart = async (id: string, pizzaId: String) => {
+    //const response = await CartModel.findOneAndUpdate({_id: id}, { $pull: { pizzas: { _id: pizzaId } } }, { new: true }); correct way
+    const response = await CartModel.findOneAndUpdate({_id: id}, { $pull: { pizzas: { pizza: pizzaId } } }, { new: true });
+    return response;
+};
+
+export { getAll, get, save, update, remove, removePizzaFromCart }

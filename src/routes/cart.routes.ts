@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllCarts, getCart, saveCart, updateCart, deleteCart, insertPizzaToCart } from "../controllers/cart.controller";
+import { getAllCarts, getCart, saveCart, updateCart, deleteCart, insertPizzaToCart, deletePizzaFromCart } from "../controllers/cart.controller";
 import  cartMiddleware  from "../middleware/cartMiddleware"
 
 const router = Router()
@@ -24,7 +24,7 @@ router.get('/carts/', getAllCarts);
 /**
  * Get cart
  * @openapi
- * /carts/{_id}:
+ * /carts/{_id}/:
  *    get:
  *      tags:
  *        - carts
@@ -43,7 +43,7 @@ router.get('/carts/', getAllCarts);
  *        '500':
  *          description: Internal server error.
  */
-router.get('/carts/:id', getCart);
+router.get('/carts/:id/', getCart);
 
 /**
  * Post cart
@@ -61,7 +61,7 @@ router.get('/carts/:id', getCart);
  *                $ref: "#/components/schemas/cart"
  *      responses:
  *        '200':
- *          description: cart added successful.
+ *          description: Cart added successful.
  *        '500':
  *          description: Internal server error.
  */
@@ -70,7 +70,7 @@ router.post('/carts/', cartMiddleware, saveCart);
 /**
  * Put cart
  * @openapi
- * /carts/{_id}:
+ * /carts/{_id}/:
  *    put:
  *      tags:
  *        - carts
@@ -90,16 +90,16 @@ router.post('/carts/', cartMiddleware, saveCart);
  *                $ref: "#/components/schemas/cart"
  *      responses:
  *        '200':
- *          description: cart updated successful.
+ *          description: Cart updated successful.
  *        '500':
  *          description: Internal server error.
  */
-router.put('/carts/:id', cartMiddleware, updateCart);
+router.put('/carts/:id/', cartMiddleware, updateCart);
 
 /**
  * Delete cart
  * @openapi
- * /carts/{_id}:
+ * /carts/{_id}/:
  *    delete:
  *      tags:
  *        - carts
@@ -114,16 +114,16 @@ router.put('/carts/:id', cartMiddleware, updateCart);
  *              type: string
  *      responses:
  *        '200':
- *          description: cart deleted successful.
+ *          description: Cart deleted successful.
  *        '500':
  *          description: Internal server error.
  */
-router.delete('/carts/:id', deleteCart);
+router.delete('/carts/:id/', deleteCart);
 
 /**
  * Add pizza to cart
  * @openapi
- * /carts/{_id}/pizzas:
+ * /carts/{_id}/pizzas/:
  *    patch:
  *      tags:
  *        - carts
@@ -143,10 +143,41 @@ router.delete('/carts/:id', deleteCart);
  *                $ref: "#/components/schemas/cartPizza"
  *      responses:
  *        '200':
- *          description: cart updated successful.
+ *          description: Cart updated successful.
  *        '500':
  *          description: Internal server error.
  */
-router.patch('/carts/:id/pizzas', insertPizzaToCart, cartMiddleware, updateCart);
+router.patch('/carts/:id/pizzas/', insertPizzaToCart, cartMiddleware, updateCart);
+
+
+/**
+ * Delete pizza from cart
+ * @openapi
+ * /carts/{_id}/pizzas/{pizzaId}/:
+ *    delete:
+ *      tags:
+ *        - carts
+ *      summary: "Delete pizza from cart by id"
+ *      description: Delete an existing pizza from cart by id.
+ *      parameters:
+ *          - name: _id
+ *            in: path
+ *            description: ID of the cart to update.
+ *            required: true
+ *            schema:
+ *              type: string
+ *          - name: pizzaId
+ *            in: path
+ *            description: ID of the pizza to delete from cart.
+ *            required: true
+ *            schema:
+ *              type: string
+ *      responses:
+ *        '200':
+ *          description: Pizza deleted successful from cart.
+ *        '500':
+ *          description: Internal server error.
+ */
+router.delete('/carts/:id/pizzas/:pizzaId/', deletePizzaFromCart, cartMiddleware, updateCart);
 
 export { router as cartsRouter }

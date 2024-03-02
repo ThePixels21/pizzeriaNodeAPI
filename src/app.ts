@@ -9,11 +9,11 @@ import { cartsRouter } from "./routes/cart.routes";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-app.use(cors()); //Puede ser consumida por cualquier origen
+app.use(cors()); //Can be consumed from any source
 app.use(express.json());
-app.use(pizzasRouter, cartsRouter);
-app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSetup));
+app.use(pizzasRouter, cartsRouter); //Endpoints
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSetup)); //Swagger endpoint
 
-db().then(() => console.log("Connected to MongoDB")).catch(err => console.error(err)) //Conexión a la bd
+db().then(() => console.log("Connected to MongoDB")).catch(err => console.error(err)) //Db connection
 
-app.listen(PORT, () => console.log(`Running at port ${PORT}`));
+app.listen(PORT, () => console.log(`Running at port ${PORT}`)); //Running port

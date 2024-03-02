@@ -26,6 +26,8 @@ export default async function calculateTotalAndIngredients(req: Request, res: Re
         }
 
         cart.total = cartTotal;
+    } else if(cart.pizzas && cart.pizzas.length == 0){
+        cart.total = 0;
     }
 
     next();
