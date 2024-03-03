@@ -16,8 +16,7 @@ export const CartSchema = new Schema<ICart>(
                     validate: [arrayLimit, "You can't have more than 4 ingredients"]
                   }
             }
-        ],
-        date: {type: Date, default: Date.now}
+        ]
     }, 
     {
     timestamps: true,

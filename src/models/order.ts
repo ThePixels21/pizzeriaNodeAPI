@@ -6,9 +6,8 @@ const orderSchema = new Schema<IOrder> (
     {
         cart: {type: CartSchema, ref: "carts", required: true},
         address: {type: String, required: true},
-        arrived: {type: Boolean, default: false, required: true},
-        arrivalTime: {type: Date},
-        date: {type: Date, default: Date.now}
+        arrived: {type: Boolean, default: false},
+        arrivalTime: {type: Date}
     }, 
     {
     timestamps: true,

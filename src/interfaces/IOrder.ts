@@ -6,5 +6,5 @@ export interface IOrder {
     address: string;
     arrived: boolean;
     arrivalTime: Date;
-    date: Date;
+    createdAt?: Date;
 }

@@ -10,5 +10,5 @@ export interface ICart {
         subtotal: number;
         ingredients: string[];
     }[];
-    date: Date;
+    createdAt?: Date;
 }
