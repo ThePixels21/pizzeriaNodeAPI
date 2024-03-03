@@ -99,6 +99,27 @@ const swaggerDefinition: OAS3Definition = {
                         }
                     }
                 }
+            },
+            order: {
+                type: "object",
+                required: ["address", "arrived"],
+                properties: {
+                    address: {
+                        type: "string"
+                    },
+                    arrived: {
+                        type: "boolean",
+                        default: false
+                    },
+                    arrivalTime: {
+                        type: "string",
+                        format: "date-time",
+                    },
+                    date: {
+                        type: "string",
+                        format: "date-time"
+                    }
+                }
             }
         }
     }
@@ -106,7 +127,7 @@ const swaggerDefinition: OAS3Definition = {
 
 const swaggerOptions: OAS3Options = {
     swaggerDefinition,
-    apis: ["./src/routes/pizza.routes.ts", "./src/routes/cart.routes.ts"]
+    apis: ["./src/routes/pizza.routes.ts", "./src/routes/cart.routes.ts", "./src/routes/order.routes.ts"]
 };
 
 export default swaggerJSDoc(swaggerOptions);

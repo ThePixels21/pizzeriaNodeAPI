@@ -1,7 +1,7 @@
 import { Schema, model} from "mongoose";
 import { ICart} from "../interfaces/ICart";
 
-const CartSchema = new Schema<ICart>(
+export const CartSchema = new Schema<ICart>(
     {
         owner: {type: String, required: true},
         total: {type: Number, required: true},

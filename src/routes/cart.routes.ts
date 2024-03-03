@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getAllCarts, getCart, saveCart, updateCart, deleteCart, insertPizzaToCart, deletePizzaFromCart } from "../controllers/cart.controller";
-import  cartMiddleware  from "../middleware/cartMiddleware"
+import  calculateTotalsMiddleware  from "../middleware/calculateTotalsMiddleware"
 
 const router = Router()
 
@@ -65,7 +65,7 @@ router.get('/carts/:id/', getCart);
  *        '500':
  *          description: Internal server error.
  */
-router.post('/carts/', cartMiddleware, saveCart);
+router.post('/carts/', calculateTotalsMiddleware, saveCart);
 
 /**
  * Put cart
@@ -94,7 +94,7 @@ router.post('/carts/', cartMiddleware, saveCart);
  *        '500':
  *          description: Internal server error.
  */
-router.put('/carts/:id/', cartMiddleware, updateCart);
+router.put('/carts/:id/', calculateTotalsMiddleware, updateCart);
 
 /**
  * Delete cart
@@ -147,7 +147,7 @@ router.delete('/carts/:id/', deleteCart);
  *        '500':
  *          description: Internal server error.
  */
-router.patch('/carts/:id/pizzas/', insertPizzaToCart, cartMiddleware, updateCart);
+router.patch('/carts/:id/pizzas/', insertPizzaToCart, calculateTotalsMiddleware, updateCart);
 
 
 /**
@@ -178,6 +178,6 @@ router.patch('/carts/:id/pizzas/', insertPizzaToCart, cartMiddleware, updateCart
  *        '500':
  *          description: Internal server error.
  */
-router.delete('/carts/:id/pizzas/:pizzaId/', deletePizzaFromCart, cartMiddleware, updateCart);
+router.delete('/carts/:id/pizzas/:pizzaId/', deletePizzaFromCart, calculateTotalsMiddleware, updateCart);
 
 export { router as cartsRouter }

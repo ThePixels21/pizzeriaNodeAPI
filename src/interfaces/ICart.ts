@@ -1,6 +1,7 @@
 import { IPizza } from "./IPizza";
 
 export interface ICart {
+    _id?: string;
     owner: string;
     total: number;
     pizzas: {
