@@ -39,13 +39,14 @@ const swaggerDefinition: OAS3Definition = {
             },
             cart: {
                 type: "object",
-                required: ["owner", "total", "pizzas", "date"],
+                required: ["owner", "total", "pizzas"],
                 properties: {
                     owner: {
                         type: "string"
                     },
                     total: {
-                        type: "number"
+                        type: "number",
+                        readOnly: true
                     },
                     pizzas: {
                         type: "array",
@@ -61,7 +62,8 @@ const swaggerDefinition: OAS3Definition = {
                                     type: "number"
                                 },
                                 subtotal: {
-                                    type: "number"
+                                    type: "number",
+                                    readOnly: true
                                 },
                                 ingredients: {
                                     type: "array",
@@ -71,10 +73,6 @@ const swaggerDefinition: OAS3Definition = {
                                 }
                             }
                         }
-                    },
-                    date: {
-                        type: "string",
-                        format: "date-time"
                     }
                 }
             },
@@ -104,6 +102,44 @@ const swaggerDefinition: OAS3Definition = {
                 type: "object",
                 required: ["address", "arrived"],
                 properties: {
+                    cart: {
+                        type: "object",
+                        readOnly: true,
+                        required: ["owner", "total", "pizzas"],
+                        properties: {
+                            owner: {
+                                type: "string"
+                            },
+                            total: {
+                                type: "number"
+                            },
+                            pizzas: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    required: ["pizza", "quantity", "subtotal", "ingredients"],
+                                    properties: {
+                                        pizza: {
+                                            type: "string",
+                                            format: "objectId"
+                                        },
+                                        quantity: {
+                                            type: "number"
+                                        },
+                                        subtotal: {
+                                            type: "number"
+                                        },
+                                        ingredients: {
+                                            type: "array",
+                                            items: {
+                                                type: "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     address: {
                         type: "string"
                     },
@@ -114,10 +150,6 @@ const swaggerDefinition: OAS3Definition = {
                     arrivalTime: {
                         type: "string",
                         format: "date-time",
-                    },
-                    date: {
-                        type: "string",
-                        format: "date-time"
                     }
                 }
             }
